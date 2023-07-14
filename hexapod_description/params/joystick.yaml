@@ -4,13 +4,16 @@
 # If you create a new one you can pass to the launch file with the joy_mapping arg.
 
 # "start" button
-STANDUP_BUTTON: 3
+STANDUP_BUTTON: 7
 
 # "select" button
-SITDOWN_BUTTON: 0
+SITDOWN_BUTTON: 6
+
+# emergency button
+EMERGENCY_OFF_BUTTON: 8
 
 # "L2" button
-BODY_ROTATION_BUTTON: 8
+BODY_ROTATION_BUTTON: 5
 
 # Left joystick up/down
 FORWARD_BACKWARD_AXES: 1

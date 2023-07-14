@@ -58,6 +58,8 @@ Control::Control( void )
     last_time_odometry_ = ros::Time::now();
     current_time_cmd_vel_ = ros::Time::now();
     last_time_cmd_vel_ = ros::Time::now();
+    //emergency_state = false;
+
     // Find out how many servos/joints we have
     for( XmlRpc::XmlRpcValue::iterator it = SERVOS.begin(); it != SERVOS.end(); it++ )
     {
@@ -87,6 +89,7 @@ Control::Control( void )
     body_scalar_sub_ = nh_.subscribe<geometry_msgs::AccelStamped>( "/body_scalar", 1, &Control::bodyCallback, this );
     head_scalar_sub_ = nh_.subscribe<geometry_msgs::AccelStamped>( "/head_scalar", 1, &Control::headCallback, this );
     state_sub_ = nh_.subscribe<std_msgs::Bool>( "/state", 1, &Control::stateCallback, this );
+    //emergency_sub_ = nh_.subscribe<std_msgs::Bool>( "/emergency", 1, &Control::stateCallback, this );
     imu_override_sub_ = nh_.subscribe<std_msgs::Bool>( "/imu/imu_override", 1, &Control::imuOverrideCallback, this );
     imu_sub_ = nh_.subscribe<sensor_msgs::Imu>( "/imu/data", 1, &Control::imuCallback, this );
 
@@ -317,7 +320,7 @@ void Control::headCallback( const geometry_msgs::AccelStampedConstPtr &head_scal
 
 void Control::stateCallback( const std_msgs::BoolConstPtr &state_msg )
 {
-    if(state_msg->data == true )
+    if( state_msg->data == true )
     {
         if( getHexActiveState() == false )
         {
@@ -352,6 +355,22 @@ void Control::stateCallback( const std_msgs::BoolConstPtr &state_msg )
         }
     }
 }
+
+//==============================================================================
+// Active emergency callback - currently just turn off all servos
+//==============================================================================
+
+/*void Control::emergencyCallback( const std_msgs::BoolConstPtr &emergency_msg )
+{
+    if( emergency_msg->data == true )
+    {
+        emergency_state = true;
+    }
+    else
+    {
+        emergency_state = false;
+    }
+}*/
 
 //==============================================================================
 // IMU override callback

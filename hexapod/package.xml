@@ -18,7 +18,7 @@
     <run_depend>xacro</run_depend>
     <run_depend>openni2_launch</run_depend>
     <run_depend>depthimage_to_laserscan</run_depend>
-    <run_depend>joystick_drivers</run_depend>
+    <!--<run_depend>joystick_drivers</run_depend>-->
     <run_depend>imu_filter_madgwick</run_depend>
     <run_depend>robot_localization</run_depend>
     <run_depend>rtabmap</run_depend>
@@ -36,7 +36,7 @@
     <run_depend>hexapod_gazebo</run_depend>
     <run_depend>hexapod_msgs</run_depend>
     <run_depend>hexapod_navigation</run_depend>
-    <run_depend>hexapod_sound</run_depend>
+    <!--<run_depend>hexapod_sound</run_depend>-->
     <run_depend>hexapod_teleop_joystick</run_depend>
 
     <export>

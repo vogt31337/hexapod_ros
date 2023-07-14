@@ -64,6 +64,12 @@ int main( int argc, char **argv )
     ros::Rate loop_rate( control.MASTER_LOOP_RATE );  // Speed limit of loop ( Will go slower than this )
     while( ros::ok() )
     {
+        /*if ( control.emergency_state == true )
+        {
+            servoDriver.emergency();
+            continue;
+        }*/
+
         current_time_ = ros::Time::now();
         double dt = ( current_time_ - last_time_ ).toSec();
 
@@ -76,6 +82,12 @@ int main( int argc, char **argv )
         ROS_INFO("Hexapod standing up.");
         while( control.body_.position.z < control.STANDING_BODY_HEIGHT )
             {
+               /*if ( control.emergency_state == true )
+               {
+                 servoDriver.emergency();
+                 continue;
+               }*/
+
                 control.body_.position.z = control.body_.position.z + 0.001; // 1 mm increment
 
                 // IK solver for legs and body orientation
@@ -116,6 +128,12 @@ int main( int argc, char **argv )
             ROS_INFO("Hexapod sitting down.");
             while( control.body_.position.z > 0 )
             {
+                /*if ( control.emergency_state == true )
+                {
+                    servoDriver.emergency();
+                    continue;
+                }*/
+
                 control.body_.position.z = control.body_.position.z - 0.001; // 1 mm increment
 
                 // Gait Sequencer called to make sure we are on all six feet
@@ -152,5 +170,3 @@ int main( int argc, char **argv )
     }
     return 0;
 }
-
-

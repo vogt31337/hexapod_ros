@@ -76,6 +76,7 @@ class Control
         double STANDING_BODY_HEIGHT;
         geometry_msgs::Twist gait_vel_;
         geometry_msgs::Twist cmd_vel_;
+        //bool emergency_state;// emergency state
 
     private:
         hexapod_msgs::Sounds sounds_; // Sound bool array
@@ -110,6 +111,8 @@ class Control
         void headCallback( const geometry_msgs::AccelStampedConstPtr &head_scalar_msg );
         ros::Subscriber state_sub_;
         void stateCallback( const std_msgs::BoolConstPtr &state_msg );
+        //ros::Subscriber emergency_sub_;
+        //void emergencyCallback( const std_msgs::BoolConstPtr &emergency_msg );
         ros::Subscriber imu_override_sub_;
         void imuOverrideCallback( const std_msgs::BoolConstPtr &imu_override_msg );
         ros::Subscriber imu_sub_;

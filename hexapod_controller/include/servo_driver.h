@@ -36,8 +36,8 @@
 #include <sensor_msgs/JointState.h>
 
 // Default setting
-#define BAUDRATE    1000000
-#define DEVICENAME  "/dev/ttyUSB0"      // Check which port is being used on your controller
+#define BAUDRATE    57600
+#define DEVICENAME  "/dev/ttyACM0"      // Check which port is being used on your controller
 #define PROTOCOL_VERSION   1.0          // See which protocol version is used in the Dynamixel
 #define TORQUE_ON   1
 #define TORQUE_OFF  0
@@ -54,6 +54,7 @@ class ServoDriver
         void transmitServoPositions( const sensor_msgs::JointState &joint_state );
         void makeSureServosAreOn( const sensor_msgs::JointState &joint_state );
         void freeServos( void );
+        void emergency( void );
     private:
         dynamixel::PortHandler *portHandler = dynamixel::PortHandler::getPortHandler(DEVICENAME); // Initialize PacketHandler instance
         dynamixel::PacketHandler *packetHandler = dynamixel::PacketHandler::getPacketHandler(PROTOCOL_VERSION); // Set the protocol version
@@ -72,6 +73,8 @@ class ServoDriver
         std::vector<int> CENTER; // Center value of dynamixel servo
         std::vector<double> RAD_TO_SERVO_RESOLUTION; // Radians to servo conversion
         std::vector<double> MAX_RADIANS; // Max rotation your servo is manufactured to do. i.e. 360 degrees for MX etc.
+        std::vector<double> MIN_POS; // Min rotation of your servo lower is not possible.
+        std::vector<double> MAX_POS; // Max rotation of your servo higher is not possible.
         XmlRpc::XmlRpcValue SERVOS; // Servo map from yaml config file
         std::vector<int> servo_orientation_; // If the servo is physically mounted backwards this sign is flipped
         std::vector<std::string> servo_map_key_;
@@ -80,6 +83,7 @@ class ServoDriver
         bool torque_off = true;
         bool writeParamSuccess = true;
         bool servos_free_;
+        bool emergency_;
         int SERVO_COUNT;
         int TORQUE_ENABLE, PRESENT_POSITION_L, GOAL_POSITION_L, INTERPOLATION_LOOP_RATE;
 };

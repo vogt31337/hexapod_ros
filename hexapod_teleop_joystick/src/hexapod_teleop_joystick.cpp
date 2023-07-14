@@ -38,9 +38,11 @@ HexapodTeleopJoystick::HexapodTeleopJoystick( void )
 {
     state_.data = false;
     imu_override_.data = false;
+    emergency_.data = false;
     NON_TELEOP = false; // Static but here for a safety precaution
     ros::param::get( "STANDUP_BUTTON", STANDUP_BUTTON );
     ros::param::get( "SITDOWN_BUTTON", SITDOWN_BUTTON );
+    ros::param::get( "EMERGENCY_OFF_BUTTON", EMERGENCY_OFF_BUTTON );
     ros::param::get( "BODY_ROTATION_BUTTON", BODY_ROTATION_BUTTON );
     ros::param::get( "FORWARD_BACKWARD_AXES", FORWARD_BACKWARD_AXES );
     ros::param::get( "LEFT_RIGHT_AXES", LEFT_RIGHT_AXES );
@@ -54,6 +56,7 @@ HexapodTeleopJoystick::HexapodTeleopJoystick( void )
     head_scalar_pub_ = nh_.advertise<geometry_msgs::AccelStamped>("/head_scalar", 100);
     cmd_vel_pub_ = nh_.advertise<geometry_msgs::Twist>("cmd_vel", 100);
     state_pub_ = nh_.advertise<std_msgs::Bool>("/state", 100);
+    emergency_pub_ = nh_.advertise<std_msgs::Bool>("/emergency", 100);
     imu_override_pub_ = nh_.advertise<std_msgs::Bool>("/imu/imu_override", 100);
 }
 
@@ -64,8 +67,10 @@ HexapodTeleopJoystick::HexapodTeleopJoystick( void )
 void HexapodTeleopJoystick::joyCallback( const sensor_msgs::Joy::ConstPtr &joy )
 {
     ros::Time current_time = ros::Time::now();
+
     if( joy->buttons[STANDUP_BUTTON] == 1 )
     {
+        ROS_WARN("Standup pressed.");
         if ( state_.data == false)
         {
             state_.data = true;
@@ -74,15 +79,26 @@ void HexapodTeleopJoystick::joyCallback( const sensor_msgs::Joy::ConstPtr &joy )
 
     if ( joy->buttons[SITDOWN_BUTTON] == 1 )
     {
+        ROS_WARN("Sitdown pressed.");
         if ( state_.data == true)
         {
             state_.data = false;
         }
     }
 
+    if ( joy->buttons[EMERGENCY_OFF_BUTTON] == 1 )
+    {
+        ROS_WARN("Emergency pressed.");
+        if ( emergency_.data == false)
+        {
+            emergency_.data = true;
+        }
+    }
+
     // Body rotation L1 Button for testing
     if( joy->buttons[BODY_ROTATION_BUTTON] == 1 )
     {
+        ROS_WARN("Rotation pressed.");
         imu_override_.data = true;
         body_scalar_.header.stamp = current_time;
         body_scalar_.accel.angular.x = -joy->axes[LEFT_RIGHT_AXES];
@@ -123,6 +139,7 @@ int main(int argc, char** argv)
             hexapodTeleopJoystick.head_scalar_pub_.publish( hexapodTeleopJoystick.head_scalar_ );
         }
         hexapodTeleopJoystick.state_pub_.publish( hexapodTeleopJoystick.state_ ); // Always publish for means of an emergency shutdown type situation
+        //hexapodTeleopJoystick.emergency_pub_.publish( hexapodTeleopJoystick.emergency_ ); // Always publish for means of an emergency shutdown type situation
         hexapodTeleopJoystick.imu_override_pub_.publish( hexapodTeleopJoystick.imu_override_ );
         loop_rate.sleep();
     }
