@@ -80,7 +80,7 @@ int main( int argc, char **argv )
         if( control.getHexActiveState() == true && control.getPrevHexActiveState() == false )
         {
         ROS_INFO("Hexapod standing up.");
-        while( control.body_.position.z < control.STANDING_BODY_HEIGHT )
+        while( control.body_.position.z < control.STANDING_BODY_HEIGHT && ros::ok() )
             {
                /*if ( control.emergency_state == true )
                {
@@ -126,7 +126,7 @@ int main( int argc, char **argv )
         if( control.getHexActiveState() == false && control.getPrevHexActiveState() == true )
         {
             ROS_INFO("Hexapod sitting down.");
-            while( control.body_.position.z > 0 )
+            while( control.body_.position.z > 0 && ros::ok() )
             {
                 /*if ( control.emergency_state == true )
                 {

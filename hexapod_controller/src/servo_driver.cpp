@@ -200,7 +200,7 @@ void ServoDriver::transmitServoPositions( const sensor_msgs::JointState &joint_s
             pose_steps_[i] = 1;
             write_pos_[i] = cur_pos_[i];
             complete[i] = 0;
-            ROS_INFO("[ID:%02d]  GoalPos: %02d", ID[i], goal_pos_[i]);
+            //ROS_INFO("[ID:%02d]  GoalPos: %02d", ID[i], goal_pos_[i]);
         }
         else
         {
