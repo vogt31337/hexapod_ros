@@ -12,8 +12,8 @@ VELOCITY_DIVISION: 0.033
 
 # Twist Max Values
 # Currently these are set from a topic echo of the "twist" message coming out of the locomotion node.
-MAX_METERS_PER_SEC: 0.082
-MAX_RADIANS_PER_SEC: !degrees 17.629
+MAX_METERS_PER_SEC: 0.041
+MAX_RADIANS_PER_SEC: !degrees 7.0
 
 # Number of head segments
 # First segment would be yaw, second would be pitch
@@ -54,7 +54,7 @@ BODY_MAX_ROLL: !degrees 8
 BODY_MAX_PITCH: !degrees 8
 
 # Body Standing Height
-STANDING_BODY_HEIGHT: 0.09
+STANDING_BODY_HEIGHT: 0.12
 
 # Head FK maximum rotation
 HEAD_MAX_YAW: !degrees 55
@@ -77,24 +77,24 @@ INTERPOLATION_LOOP_RATE: 550
 
 # Servo descriptions
 SERVOS: {
-    '01': {name: coxa_joint_RR, type: AX, id: 8, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 0},
-    '02': {name: femur_joint_RR, type: AX, id: 10, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 14},
-    '03': {name: tibia_joint_RR, type: AX, id: 12, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees -48},
-    '04': {name: coxa_joint_RM, type: AX, id: 14, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 0},
-    '05': {name: femur_joint_RM, type: AX, id: 16, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 14},
-    '06': {name: tibia_joint_RM, type: AX, id: 18, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees -48},
-    '07': {name: coxa_joint_RF, type: AX, id: 2, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 0},
-    '08': {name: femur_joint_RF, type: AX, id: 4, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 14},
-    '09': {name: tibia_joint_RF, type: AX, id: 6, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees -48},
-    '10': {name: coxa_joint_LR, type: AX, id: 7, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
-    '11': {name: femur_joint_LR, type: AX, id: 9, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 14},
-    '12': {name: tibia_joint_LR, type: AX, id: 11, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees -48},
-    '13': {name: coxa_joint_LM, type: AX, id: 13, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
-    '14': {name: femur_joint_LM, type: AX, id: 15, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 14},
-    '15': {name: tibia_joint_LM, type: AX, id: 17, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees -48},
-    '16': {name: coxa_joint_LF, type: AX, id: 19, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
-    '17': {name: femur_joint_LF, type: AX, id: 3, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 14},
-    '18': {name: tibia_joint_LF, type: AX, id: 5, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees -48},
-    '19': {name: pan_joint, type: AX, id: 20, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
-    '20': {name: tilt_joint, type: AX, id: 21, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0}
+    '01': {name: coxa_joint_RR, type: MX, id: 8, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 0},
+    '02': {name: femur_joint_RR, type: MX, id: 10, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 14},
+    '03': {name: tibia_joint_RR, type: MX, id: 12, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees -48},
+    '04': {name: coxa_joint_RM, type: MX, id: 14, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 0},
+    '05': {name: femur_joint_RM, type: MX, id: 16, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 14},
+    '06': {name: tibia_joint_RM, type: MX, id: 18, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees -48},
+    '07': {name: coxa_joint_RF, type: MX, id: 2, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 0},
+    '08': {name: femur_joint_RF, type: MX, id: 4, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees 14},
+    '09': {name: tibia_joint_RF, type: MX, id: 6, ticks: 1024, center: 512, max_radians: !degrees 300, sign: -1, offset: !degrees -48},
+    '10': {name: coxa_joint_LR, type: MX, id: 7, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
+    '11': {name: femur_joint_LR, type: MX, id: 9, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 14},
+    '12': {name: tibia_joint_LR, type: MX, id: 11, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees -48},
+    '13': {name: coxa_joint_LM, type: MX, id: 13, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
+    '14': {name: femur_joint_LM, type: MX, id: 15, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 14},
+    '15': {name: tibia_joint_LM, type: MX, id: 17, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees -48},
+    '16': {name: coxa_joint_LF, type: MX, id: 19, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
+    '17': {name: femur_joint_LF, type: MX, id: 3, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 14},
+    '18': {name: tibia_joint_LF, type: MX, id: 5, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees -48},
+    '19': {name: pan_joint, type: MX, id: 20, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0},
+    '20': {name: tilt_joint, type: MX, id: 21, ticks: 1024, center: 512, max_radians: !degrees 300, sign: 1, offset: !degrees 0}
 }
