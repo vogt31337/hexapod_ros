@@ -2,13 +2,13 @@
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="sfnpod">
 
-	<!-- parameters -->
-	<xacro:property name="pi" value="3.1415926535897931" />
-	<xacro:property name="body_length_x" value="0.40" />
-	<xacro:property name="body_length_y" value="0.33" />
-	<xacro:property name="coxa_length" value="0.055" />
-	<xacro:property name="femur_length" value="0.140" />
-	<xacro:property name="tibia_length" value="0.220" />
+    <!-- parameters -->
+    <xacro:property name="pi" value="3.1415926535897931" />
+    <xacro:property name="body_length_x" value="0.40" />
+    <xacro:property name="body_length_y" value="0.33" />
+    <xacro:property name="coxa_length" value="0.055" />
+    <xacro:property name="femur_length" value="0.140" />
+    <xacro:property name="tibia_length" value="0.220" />
 
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
@@ -57,12 +57,12 @@
     </gazebo>
 
     <!-- Head Pan and Tilt properties -->
-    <!--<joint name="head_pan_joint" type="revolute">
-		<parent link="body_link"/>
-		<child link="head_pan_link"/>
-		<axis xyz="0.0 0.0 1.0" />
-		<origin xyz="0.145 0.0 0.080" />
-		<limit lower="-${3.14}" upper="${3.14}" effort="10000" velocity="100" />
+    <joint name="pan_joint" type="revolute">
+        <parent link="body_link"/>
+        <child link="head_pan_link"/>
+        <axis xyz="0.0 0.0 1.0" />
+        <origin xyz="0.145 0.0 0.080" />
+        <limit lower="-${3.14}" upper="${3.14}" effort="10000" velocity="100" />
     </joint>
     <link name="head_pan_link">
         <inertial>
@@ -74,7 +74,7 @@
                 izz="1.0" />
         </inertial>
     </link>
-    <joint name="head_tilt_joint" type="revolute">
+    <joint name="tilt_joint" type="revolute">
 		<parent link="head_pan_link"/>
 		<child link="head_tilt_link"/>
 		<axis xyz="0.0 1.0 0.0" />
@@ -90,15 +90,42 @@
                 iyy="1.0" iyz="0.0"
                 izz="1.0" />
         </inertial>
-    </link>-->
+    </link>
 
-	<!-- IMU properties -->
-	<joint name="imu_joint" type="fixed">
-		<parent link="base_link" />
-		<child link="imu_link" />
-		<origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
-	</joint>
-	<link name="imu_link">
+    <!-- Joint to connect the head geometry to head_tilt_link -->
+    <joint name="head_geometry_joint" type="fixed">
+        <parent link="head_tilt_link"/>
+        <child link="head_geometry"/>
+        <origin xyz="0 0 0.02" rpy="0 0 0"/> <!-- Adjust position as needed -->
+    </joint>
+
+    <!-- Head geometry link definition -->
+    <link name="head_geometry">
+        <visual>
+            <geometry>
+                <box size="0.1 0.1 0.1"/> <!-- Adjust size as needed -->
+            </geometry>
+            <material name="head_color">
+                <color rgba="1 1 1 1"/> <!-- Set color as needed -->
+            </material>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.1"/> <!-- Set mass as needed -->
+            <inertia
+                ixx="0.001" ixy="0" ixz="0"
+                iyy="0.001" iyz="0"
+                izz="0.001"/> <!-- Set inertia as needed -->
+        </inertial>
+    </link>
+    
+    <!-- IMU properties -->
+    <joint name="imu_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="imu_link" />
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    </joint>
+    <link name="imu_link">
         <inertial>
             <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
             <mass value="0.00001"/>

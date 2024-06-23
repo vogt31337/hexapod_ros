@@ -103,13 +103,13 @@ void HexapodTeleopJoystick::joyCallback( const sensor_msgs::Joy::ConstPtr &joy )
         body_scalar_.header.stamp = current_time;
         body_scalar_.accel.angular.x = -joy->axes[LEFT_RIGHT_AXES];
         body_scalar_.accel.angular.y = -joy->axes[FORWARD_BACKWARD_AXES];
-        head_scalar_.header.stamp = current_time;
-        head_scalar_.accel.angular.z = joy->axes[YAW_ROTATION_AXES];
-        head_scalar_.accel.angular.y = joy->axes[PITCH_ROTATION_AXES];
     }
     else
     {
         imu_override_.data = false;
+        head_scalar_.header.stamp = current_time;
+        head_scalar_.accel.angular.z = joy->axes[YAW_ROTATION_AXES];
+        head_scalar_.accel.angular.y = joy->axes[PITCH_ROTATION_AXES];
     }
 
     // Travelling
@@ -117,7 +117,7 @@ void HexapodTeleopJoystick::joyCallback( const sensor_msgs::Joy::ConstPtr &joy )
     {
         cmd_vel_.linear.x = joy->axes[FORWARD_BACKWARD_AXES] * MAX_METERS_PER_SEC;
         cmd_vel_.linear.y = -joy->axes[LEFT_RIGHT_AXES] * MAX_METERS_PER_SEC;
-        cmd_vel_.angular.z = joy->axes[YAW_ROTATION_AXES] * MAX_RADIANS_PER_SEC;
+        //cmd_vel_.angular.z = joy->axes[YAW_ROTATION_AXES] * MAX_RADIANS_PER_SEC;
     }
 }
 
